@@ -1,26 +1,125 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+html {
+  background-color: #0a0a0a;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
+    --background: #ffffff;
+    --foreground: #171717;
+
+    /* Portal Theme Colors */
+    --portal-primary: #3b82f6;
+    --portal-secondary: #1f2937;
+    --portal-accent: #10b981;
+    --portal-error: #ef4444;
+    --portal-background: #ffffff;
+    --portal-background-dark: #0a0a0a;
+    --portal-foreground: #171717;
+    --portal-foreground-dark: #ededed;
+
+    /* Shadow Variables */
+    --shadow-subtle: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    --shadow-card: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  }
+
+  .dark {
     --background: #0a0a0a;
     --foreground: #ededed;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  body {
+    background: var(--background);
+    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: "Geist Sans", ui-sans-serif, system-ui, sans-serif;
+  }
+  .font-mono {
+    font-family: "Geist Mono", ui-monospace, monospace;
+  }
+}
+
+/* Portal theme color utilities */
+.text-portal-primary { color: var(--portal-primary); }
+.bg-portal-primary { background-color: var(--portal-primary); }
+.hover\:bg-portal-primary:hover { background-color: var(--portal-primary); }
+.focus-visible\:ring-portal-primary:focus-visible { --tw-ring-color: var(--portal-primary); }
+
+.text-portal-secondary { color: var(--portal-secondary); }
+.bg-portal-secondary { background-color: var(--portal-secondary); }
+
+.text-portal-accent { color: var(--portal-accent); }
+.bg-portal-accent { background-color: var(--portal-accent); }
+
+.text-portal-error { color: var(--portal-error); }
+.bg-portal-error { background-color: var(--portal-error); }
+
+.bg-portal-background { background-color: var(--portal-background); }
+.dark\:bg-portal-background-dark { background-color: var(--portal-background-dark); }
+
+.text-portal-foreground { color: var(--portal-foreground); }
+.dark\:text-portal-foreground-dark { color: var(--portal-foreground-dark); }
+
+/* Shadow utilities */
+.shadow-subtle { box-shadow: var(--shadow-subtle); }
+.shadow-card { box-shadow: var(--shadow-card); }
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Animations */
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slide-up {
+  0% { transform: translateY(20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  0% { transform: translateY(-20px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-in-out;
+}
+
+.animate-slide-up {
+  animation: slide-up 0.3s ease-out;
+}
+
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* Code styling */
+code {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+.dark code {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Input number styling */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
